@@ -1,87 +1,129 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Asset } from '@/types/asset';
 
 interface AssetTableProps {
   assets: Asset[];
 }
 
+type SortField = 'Bridge_Name' | 'Load_Limit_t' | 'Load_Limit_Band';
+
 export default function AssetTable({ assets }: AssetTableProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedBand, setSelectedBand] = useState<string>('All');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [sortField, setSortField] = useState<SortField>('Load_Limit_t');
+  const [sortAsc, setSortAsc] = useState<boolean>(true);
 
-  // Lấy danh sách các categories duy nhất từ dữ liệu
-  const categories = ['All', ...Array.from(new Set(assets.map((a) => a.category)))];
+  const bands = ['All', ...Array.from(new Set(assets.map((a) => a.Load_Limit_Band)))];
 
-  // Lọc danh sách tài sản theo category được chọn
-  const filteredAssets = selectedCategory === 'All' 
-    ? assets 
-    : assets.filter((a) => a.category === selectedCategory);
+  const filteredAssets = useMemo(() => {
+    return assets
+      .filter((a) => {
+        const matchesBand = selectedBand === 'All' || a.Load_Limit_Band === selectedBand;
+        const searchLower = searchTerm.toLowerCase();
+        const matchesSearch = 
+          (a.Bridge_Name || '').toLowerCase().includes(searchLower) ||
+          (a.Road_Name || '').toLowerCase().includes(searchLower) ||
+          (a.Asset_Owner || '').toLowerCase().includes(searchLower) ||
+          (a.Bridge_Number || '').toLowerCase().includes(searchLower);
+        return matchesBand && matchesSearch;
+      })
+      .sort((a, b) => {
+        let valA = a[sortField] ?? 0;
+        let valB = b[sortField] ?? 0;
+        if (typeof valA === 'string') valA = (valA as string).toLowerCase();
+        if (typeof valB === 'string') valB = (valB as string).toLowerCase();
 
-  // Hàm helper vẽ badge rủi ro
-  const getRiskBadge = (score: number) => {
-    if (score >= 15) {
-      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30">High ({score})</span>;
-    } else if (score >= 10) {
-      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Medium ({score})</span>;
+        if (valA < valB) return sortAsc ? -1 : 1;
+        if (valA > valB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+  }, [assets, selectedBand, searchTerm, sortField, sortAsc]);
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortAsc(!sortAsc);
     } else {
-      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Low ({score})</span>;
+      setSortField(field);
+      setSortAsc(true);
+    }
+  };
+
+  const getRiskBadge = (band: string) => {
+    const b = (band || '').toLowerCase();
+    if (b.includes('severe')) {
+      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30">Severe (&le; 5t)</span>;
+    } else if (b.includes('moderate')) {
+      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Moderate (6–20t)</span>;
+    } else {
+      return <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Light (&gt; 20t)</span>;
     }
   };
 
   return (
-    <div>
-      {/* Category Filter Buttons */}
-      <div className="flex flex-wrap items-center gap-2 mb-6">
-        <span className="text-sm font-medium text-slate-400 mr-2">Filter by Category:</span>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              selectedCategory === cat
-                ? 'bg-sky-600 text-white shadow-md'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+    <div className="mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Search by bridge name, road, or owner..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full md:w-96 px-4 py-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500"
+        />
+
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium text-slate-400 mr-2">Load Limit Band:</span>
+          {bands.map((band) => (
+            <button
+              key={band}
+              onClick={() => setSelectedBand(band)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                selectedBand === band
+                  ? 'bg-sky-600 text-white shadow-md'
+                  : 'bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800'
+              }`}
+            >
+              {band}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Data Table */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-800 text-slate-300 text-sm">
-              <th className="p-4">ID</th>
-              <th className="p-4">Asset Name</th>
-              <th className="p-4">Category</th>
-              <th className="p-4">Location</th>
-              <th className="p-4">Condition</th>
-              <th className="p-4">Criticality</th>
-              <th className="p-4">Risk Score</th>
-              <th className="p-4">Replacement Cost ($M)</th>
+              <th className="p-4">Bridge No</th>
+              <th className="p-4 cursor-pointer hover:text-sky-400" onClick={() => handleSort('Bridge_Name')}>
+                Bridge Name {sortField === 'Bridge_Name' && (sortAsc ? '▲' : '▼')}
+              </th>
+              <th className="p-4">Road Name</th>
+              <th className="p-4">Asset Owner</th>
+              <th className="p-4 cursor-pointer hover:text-sky-400" onClick={() => handleSort('Load_Limit_t')}>
+                Load Limit {sortField === 'Load_Limit_t' && (sortAsc ? '▲' : '▼')}
+              </th>
+              <th className="p-4 cursor-pointer hover:text-sky-400" onClick={() => handleSort('Load_Limit_Band')}>
+                Restriction Band {sortField === 'Load_Limit_Band' && (sortAsc ? '▲' : '▼')}
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800 text-sm">
             {filteredAssets.length > 0 ? (
               filteredAssets.map((asset) => (
-                <tr key={asset.id} className="hover:bg-slate-800/50 transition-colors">
-                  <td className="p-4 font-mono text-xs text-sky-400">{asset.id}</td>
-                  <td className="p-4 font-medium">{asset.name}</td>
-                  <td className="p-4 text-slate-300">{asset.category}</td>
-                  <td className="p-4 text-slate-400">{asset.location}</td>
-                  <td className="p-4">{asset.condition_score}</td>
-                  <td className="p-4">{asset.criticality_score}</td>
-                  <td className="p-4">{getRiskBadge(asset.riskScore || 0)}</td>
-                  <td className="p-4">${asset.replacement_cost_m}M</td>
+                <tr key={asset.Object} className="hover:bg-slate-800/50 transition-colors">
+                  <td className="p-4 font-mono text-xs text-sky-400">{asset.Bridge_Number}</td>
+                  <td className="p-4 font-medium">{asset.Bridge_Name}</td>
+                  <td className="p-4 text-slate-300">{asset.Road_Name}</td>
+                  <td className="p-4 text-slate-400">{asset.Asset_Owner}</td>
+                  <td className="p-4 font-bold">{asset.Load_Limit_t}t</td>
+                  <td className="p-4">{getRiskBadge(asset.Load_Limit_Band)}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={8} className="p-8 text-center text-slate-500">
-                  No assets found in this category.
+                <td colSpan={6} className="p-8 text-center text-slate-500">
+                  No bridges found matching your criteria.
                 </td>
               </tr>
             )}

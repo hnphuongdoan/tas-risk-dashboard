@@ -14,11 +14,27 @@ export function getAssets(): Asset[] {
     skipEmptyLines: true,
   });
 
-  const assets = (parsed.data as Asset[]).map((asset) => ({
-    ...asset,
-    riskScore: calculateRiskScore(asset),
-  }));
+  // Map raw CSV rows to match the Asset interface
+  const assets: Asset[] = (parsed.data as any[]).map((row) => {
+    const asset: Asset = {
+      Object: row['Object'] || '',
+      Bridge_Number: row['Bridge Number'] || '',
+      Bridge_Name: row['Bridge Name'] || '',
+      Road_Name: row['Road Name'] || '',
+      Asset_Owner: row['Asset Owner'] || '',
+      Load_Limit_t: Number(row['Load Limit (t)'] || 0),
+      Load_Limit_Description: row['Load Limit Description'] || '',
+      Longitude: Number(row['Longitude'] || 0),
+      Latitude: Number(row['Latitude'] || 0),
+      Load_Limit_Band: row['Load Limit Band'] || 'Moderate',
+    };
 
-  // Sắp xếp theo rủi ro giảm dần (Risk-ranked)
+    return {
+      ...asset,
+      riskScore: calculateRiskScore(asset),
+    };
+  });
+
+  // Sort by risk score descending (Risk-ranked)
   return assets.sort((a, b) => (b.riskScore || 0) - (a.riskScore || 0));
 }

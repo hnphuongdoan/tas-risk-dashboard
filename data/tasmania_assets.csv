@@ -1,6 +1,21 @@
-id,name,category,location,condition_score,criticality_score,replacement_cost_m,latitude,longitude
-TAS-001,Tasman Highway Bridge 4,Bridge,Hobart,4,5,45.5,-42.8821,147.3272
-TAS-002,Derwent Valley Water Treatment,Water,New Norfolk,3,5,120.0,-42.7833,147.0667
-TAS-003,Burnie Port Terminal Berth 2,Port,Burnie,5,4,85.2,-41.0500,145.9167
-TAS-004,Mid Highway Pavement Sec A,Road,Launceston to Hobart,4,4,210.0,-42.1538,147.4959
-TAS-005,Launceston General Substation,Energy,Launceston,2,5,65.4,-41.4332,147.1441
+﻿Object ID,Bridge Number,Bridge Name,Road Name,Asset Owner,Load Limit (t),Load Limit Description,Longitude,Latitude,Load Limit Band
+743,CENH 40,Nive River Bridge,Gowan Brae Road,Central Highlands Council,10,,146.4441,-42.0515,Moderate (6-20t)
+750,DEVP R689,Don River,Forth Road,Devonport City Council,25,,146.3160,-41.1826,Light (over 20t)
+752,HUON 200,Kermandie River Bridge,Memorial Park St,Huon Valley Council,20,,146.9276,-43.1691,Moderate (6-20t)
+757,SG 1276,North Esk River Bridge,Blessington Road,State Growth,50,,147.2322,-41.4882,Light (over 20t)
+762,HUON 195,Unnamed Creek Bridge,Sepia Road,Huon Valley Council,2,,147.1468,-42.9279,Severe (5t or less)
+767,CLAR 3,Acton Creek Bridge,Esplanade,Clarence Council,20,Max Speed 10kph,147.5026,-42.8653,Moderate (6-20t)
+772,BODC 2398,South George River Bridge,Forest Lodge Road,Break O Day Council,27,,147.9348,-41.3122,Light (over 20t)
+776,DERW 1,Tyenna Creek Bridge,Weir Road,Derwent Valley Council,5,,146.7138,-42.6880,Severe (5t or less)
+777,BODC 1243,North George River Bridge,Unnamed Road,Break O Day Council,10,,147.9495,-41.2637,Moderate (6-20t)
+778,NMID 599,Main Road (Blackman River),Main Road,Northern Midlands Council,5,,147.4287,-42.1321,Severe (5t or less)
+785,NMID 3225,Ross Bridge,Roseneath Road,Northern Midlands Council,20,,147.4897,-42.0308,Moderate (6-20t)
+786,HUON 217,Supplices Creek Bridge,Cygnet Caravan Park,Huon Valley Council,3,,147.0746,-43.1556,Severe (5t or less)
+789,CLAR 157,Richmond Bridge,Wellington Street,Clarence Council,25,,147.4400,-42.7339,Light (over 20t)
+791,SG 309,Meander River Bridge,Emu Bay Road,State Growth,36,,146.6584,-41.5247,Light (over 20t)
+792,CIRC 1910,Wilsons Creek,Montumana Road,Circular Head Council,25,,145.4851,-40.9180,Light (over 20t)
+793,BRIG 8,Bagdad Rivulet Bridge,Rifle Range Road,Brighton Council,15,,147.2716,-42.6782,Moderate (6-20t)
+1062,KENT 14,Hoggs Bridge,Native Plains Road,Kentish Council,30,Per Axle Group; Single Axle 8t; Tandem Axle 14t; Tri-Axle 17t; Quad-Axle 17t,146.4615,-41.3344,Light (over 20t)
+2023,HUON 76,Castle Forbes Rivulet Bridge,Castle Forbes Rd,Huon Valley Council,15,,146.9604,-43.1276,Moderate (6-20t)
+2343,WARW 2286,Hellyer River,Guildford Road,Waratah Wynyard Council,20,,145.6731,-41.4168,Moderate (6-20t)
+2663,GLEN 9999,Tolosa Park St Drain Bridge,Tolosa Park Access Rd,Glenorchy Council,2,,147.2509,-42.8520,Severe (5t or less)
