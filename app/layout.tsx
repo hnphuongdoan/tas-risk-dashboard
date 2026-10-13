@@ -1,10 +1,4 @@
-import type { Metadata } from "next/metadata";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Tasmanian Bridge Risk Dashboard",
-  description: "Infrastructure risk analytics dashboard analyzing Tasmanian load-limited bridges.",
-};
 
 export default function RootLayout({
   children,
@@ -13,6 +7,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Tasmanian Bridge Risk Dashboard</title>
+        <meta name="description" content="Infrastructure risk analytics dashboard analyzing Tasmanian load-limited bridges." />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

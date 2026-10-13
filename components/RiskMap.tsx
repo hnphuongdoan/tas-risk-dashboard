@@ -13,7 +13,7 @@ export default function RiskMap({ assets }: RiskMapProps) {
       <p className="text-xs text-slate-400 mb-4">Spatial listing of sampled Tasmanian load-limited assets based on WGS84 geographic coordinates.</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-80 overflow-y-auto pr-2">
-        {assets.map((asset) => {
+        {assets.map((asset, index) => {
           const band = (asset.Load_Limit_Band || '').toLowerCase();
           const badgeColor = band.includes('severe') 
             ? 'bg-rose-500/20 text-rose-400 border-rose-500/30' 
@@ -22,7 +22,7 @@ export default function RiskMap({ assets }: RiskMapProps) {
             : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
 
           return (
-            <div key={asset.Object} className="bg-slate-950 border border-slate-800 p-4 rounded-lg flex flex-col justify-between">
+            <div key={`map-${asset.Object || 'bridge'}-${index}`} className="bg-slate-950 border border-slate-800 p-4 rounded-lg flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-start mb-2">
                   <span className="font-mono text-xs text-sky-400">{asset.Bridge_Number}</span>

@@ -110,8 +110,8 @@ export default function AssetTable({ assets }: AssetTableProps) {
           </thead>
           <tbody className="divide-y divide-slate-800 text-sm">
             {filteredAssets.length > 0 ? (
-              filteredAssets.map((asset) => (
-                <tr key={asset.Object} className="hover:bg-slate-800/50 transition-colors">
+              filteredAssets.map((asset, index) => (
+                <tr key={`${asset.Object || 'bridge'}-${index}`} className="hover:bg-slate-800/50 transition-colors">
                   <td className="p-4 font-mono text-xs text-sky-400">{asset.Bridge_Number}</td>
                   <td className="p-4 font-medium">{asset.Bridge_Name}</td>
                   <td className="p-4 text-slate-300">{asset.Road_Name}</td>
