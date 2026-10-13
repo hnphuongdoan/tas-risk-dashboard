@@ -1,0 +1,6 @@
+id,name,category,location,condition_score,criticality_score,replacement_cost_m,latitude,longitude
+TAS-001,Tasman Highway Bridge 4,Bridge,Hobart,4,5,45.5,-42.8821,147.3272
+TAS-002,Derwent Valley Water Treatment,Water,New Norfolk,3,5,120.0,-42.7833,147.0667
+TAS-003,Burnie Port Terminal Berth 2,Port,Burnie,5,4,85.2,-41.0500,145.9167
+TAS-004,Mid Highway Pavement Sec A,Road,Launceston to Hobart,4,4,210.0,-42.1538,147.4959
+TAS-005,Launceston General Substation,Energy,Launceston,2,5,65.4,-41.4332,147.1441
