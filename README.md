@@ -82,13 +82,12 @@ To analyze the distribution of restrictions, assets are categorized into three a
 ---
 
 ## Getting Started
-
 ```bash
 git clone https://github.com/hnphuongdoan/tas-risk-dashboard.git
 cd tas-risk-dashboard
 npm install
 npm run dev
-
+```
 Open http://localhost:3000 in your browser.
 
 License
