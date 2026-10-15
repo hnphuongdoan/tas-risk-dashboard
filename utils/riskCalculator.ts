@@ -17,7 +17,8 @@ export function calculateRiskScore(asset: Asset): number {
   }
   
   // Fallback calculation based on load limit if the band description is missing
-  if (asset.Load_Limit_t <= 5) return 22;
-  if (asset.Load_Limit_t <= 15) return 15;
+  const limit = Number(asset.Load_Limit_t ?? 999);
+  if (limit <= 5) return 22;
+  if (limit <= 15) return 15;
   return 8;
 }

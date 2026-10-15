@@ -6,7 +6,7 @@ import { Asset } from '@/types/asset';
 const LeafletMap = dynamic(() => import('@/components/LeafletMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-96 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-center text-slate-500 text-sm">
+    <div className="w-full h-96 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 text-sm">
       Loading interactive GIS map...
     </div>
   ),

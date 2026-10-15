@@ -1,44 +1,67 @@
 # Tasmanian Load-Limited Bridges Dashboard
 
-A production-ready, portfolio-grade Next.js web application designed to visualize, filter, and analyze real-world infrastructure asset data from Tasmania. Built with a strong focus on data credibility, transparent assumptions, and clean analytical layout.
+> A high-fidelity, production-grade infrastructure analytics dashboard exploring heavy-vehicle load restrictions on Tasmanian bridges. Built with strict engineering standards, data-accurate reporting, and transparent methodological constraints.
+
+![Next.js](https://img.shields.io/badge/Next.js-16.4-black?style=flat-square&logo=next.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38BDF8?style=flat-square&logo=tailwindcss)
+![React-Leaflet](https://img.shields.io/badge/Leaflet-GIS-199900?style=flat-square&logo=leaflet)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
-## 🚀 Key Features
+## 📌 Executive Summary
 
-* **Real Infrastructure Dataset:** Parses and processes load-limited bridge data sourced from the Department of State Growth (Tasmania) and the National Heavy Vehicle Regulator.
-* **Interactive Data Grid:** Features live search capability across bridge names, roads, and owners, alongside dynamic multi-column sorting.
-* **Analytical Decision-Support Chart:** Horizontal bar visualization showing bridge ownership distribution with objective, non-overclaimed executive insights.
-* **Geospatial Location Inspector:** Lists spatial bridge metadata with WGS84 geographic coordinates and restriction-tier badges.
-* **Transparent Methodology & Limitations:** Explicitly documents sample scope, data provenance, CC BY 4.0 licensing, and analytical boundaries to maintain professional credibility.
+This dashboard provides an analytical interface for examining heavy-vehicle load-limit restrictions across Tasmanian bridge assets. 
+
+* **Key Finding (Convenience Sample):** In a sample of **20 load-limited bridges**, **5 (25%)** are restricted to a severe threshold of **5 t or less**, and **18 of 20** are managed by local government councils.
+* **Important Distinction:** Load limits represent **legal operating restrictions**, not structural engineering condition ratings.
+
+---
+
+## 📊 Scope & Data Specification
+
+* **Dataset:** Tasmanian Load Limited Bridges and Roads (Load-Limit Bridges Layer), Department of State Growth (Tasmania). Retrieved 13 Oct 2026.
+* **Sample Scope:** A convenience sample of **20 out of 40 records**, ordered by Object ID (`resultRecordCount=20&orderByFields=OBJECTID`), verified on 15 Oct 2026. Because this is a non-random convenience sample, all figures describe these 20 specific bridges only.
+* **Licensing:** Licensed under Creative Commons Attribution 4.0 International (**CC BY 4.0**). Filtered and banded by the author.
+
+---
+
+## 🗂️ Classification Bands
+
+To analyze the distribution of restrictions, assets are categorized into three author-defined operational bands:
+1. **Severe ($\le 5$ t):** High restriction threshold, heavily limiting freight and multi-axle transport.
+2. **Moderate (6–20 t):** Intermediate restriction band.
+3. **Light ($> 20$ t):** Minor operating restrictions.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Framework:** Next.js (App Router, Server Components)
-* **Language:** TypeScript
-* **Styling:** Tailwind CSS
-* **Data Visualization:** Recharts
-* **CSV Parsing:** PapaParse
+* **Framework:** Next.js (App Router, Turbopack, Server-Side Rendering with dynamic client isolation)
+* **Styling:** Tailwind CSS (Dark-mode engineering aesthetic)
+* **GIS Mapping:** React-Leaflet with custom WGS84 coordinate markers, auto-bounding padding, and OpenStreetMap tiles (Zero external API key dependencies)
+* **Data Visualization:** Recharts (Responsive bar distributions)
+* **Data Utility:** Client-side multi-column sorting, real-time query filtering, and CSV data export
 
 ---
 
-## 📂 Project Structure
+## ⚠️ Data Quality & Limitations
 
-```text
-tas-risk-dashboard/
-├── app/
-│   ├── layout.tsx         # Root layout & styling setup
-│   └── page.tsx           # Main dashboard assembly & methodology footer
-├── components/
-│   ├── AssetTable.tsx     # Filterable, sortable, and searchable data grid
-│   ├── RiskChart.tsx      # Horizontal analytical bar chart with observations
-│   └── RiskMap.tsx        # Spatial coordinate cards with restriction badges
-├── data/
-│   └── tasmania_assets.csv# Real infrastructure sample dataset
-├── lib/
-│   └── loadAssets.ts      # Server-side CSV reader & data mapper
-├── types/
-│   └── asset.ts           # TypeScript interfaces for asset records
-└── next.config.ts         # Next.js configurations & dev origins
+* **Unnamed Assets:** Certain regional roads and bridge assets lack formal naming conventions within the source layer.
+* **Supplementary Notes:** Specific structures feature axle-group or speed restrictions captured in the metadata notes (e.g., Hoggs Bridge and Acton Creek).
+* **Absence of Condition Data:** The dataset records legal thresholds only; no structural age, traffic volume, or asset condition metrics are attached.
+
+---
+
+## 🚀 Getting Started Locally
+
+### Prerequisites
+* Node.js (v18+ recommended)
+* npm
+
+### Installation & Run Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/hnphuongdoan/tas-risk-dashboard.git](https://github.com/hnphuongdoan/tas-risk-dashboard.git)
+   cd tas-risk-dashboard
