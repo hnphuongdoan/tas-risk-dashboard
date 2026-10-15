@@ -12,7 +12,7 @@
 
 An interactive dashboard exploring heavy-vehicle load limits on a sample of 20 Tasmanian bridges, built with Next.js, TypeScript, Tailwind CSS and Leaflet using open data from the Department of State Growth.
 
-![Dashboard Preview](./public/preview.png)
+**Live Preview / Demo:** [Explore the Live Tasmanian Bridges Dashboard](https://tas-risk-dashboard-cnlz.vercel.app)
 
 ---
 
@@ -42,9 +42,9 @@ In this sample of 20 load-limited bridges, 5 (25%) are restricted to 5 t or less
 ## Classification Bands
 
 To analyze the distribution of restrictions, assets are categorized into three author-defined exploratory bands:
-* **Severe ($\le 5$ t)**
+* **Severe (≤ 5 t)**
 * **Moderate (6–20 t)**
-* **Light ($> 20$ t)**  
+* **Light (> 20 t)**  
 *(Note: These cut-offs are chosen by the author for exploration and do not represent an official departmental classification).*
 
 ---
