@@ -42,7 +42,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Executive Summary Card (Fixed dynamic text) */}
+        {/* Executive Summary Card */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
           <h3 className="text-xs font-bold uppercase tracking-wider text-sky-400 mb-2">
@@ -87,12 +87,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Chart Section (Removed duplicated header wrapper) */}
+        {/* Chart Section */}
         <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-xl">
           <RiskChart assets={assets} />
         </div>
 
-        {/* Map Section (Removed duplicated header wrapper) */}
+        {/* Map Section */}
         <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-xl">
           <div className="h-[450px] w-full rounded-lg overflow-hidden border border-slate-800">
             <RiskMap assets={assets} />
@@ -109,7 +109,7 @@ export default function Home() {
             <strong className="text-slate-300">Data Source:</strong> Tasmanian Load Limited Bridges and Roads (load-limit bridges layer), Department of State Growth (Tasmania), CC BY 4.0. Retrieved 13 Oct 2026.
           </p>
           <p>
-            <strong className="text-slate-300">Scope:</strong> First {totalBridges} records in source layer ordered by Object ID (<span className="font-mono text-xs text-sky-400 break-all">resultRecordCount=20&orderByFields=OBJECTID</span>). This is a convenience sample, non-random.
+            <strong className="text-slate-300">Scope:</strong> First {totalBridges} records in source layer ordered by Object ID (<span className="font-mono text-xs text-sky-400 break-all">resultRecordCount={totalBridges}&orderByFields=OBJECTID</span>). This is a convenience sample, non-random.
           </p>
           <p>
             <strong className="text-slate-300">Units & Classification Bands:</strong> Load limits are assumed to be in tonnes. Bands defined as: Severe (≤ 5 t), Moderate (6–20 t), Light (&gt; 20 t). These are the author&apos;s own groupings and not an official departmental classification.
