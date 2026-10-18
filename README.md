@@ -31,7 +31,7 @@ In this sample of 20 load-limited bridges, 5 (25%) are restricted to 5 t or less
 ## Scope & Data Specification
 
 * **Dataset:** [Tasmanian Load Limited Bridges and Roads](https://researchdata.edu.au/tasmanian-load-limited-bridges-roads/3787918) (load-limit bridges layer), Department of State Growth (Tasmania). Retrieved 13 Oct 2026. 
-* **Data File:** Local sample JSON/data asset located at `lib/bridgesData.ts`.
+* **Data File:** Local sample JSON/data asset located at `data/tasmania_assets.csv`.
 * **API Source Query:** [ArcGIS REST Query Service](https://data.stategrowth.tas.gov.au/ags/rest/services/HVN/LoadLimited_RoadsBridges/MapServer/0/query?where=1%3D1&outFields=*&outSR=4326&resultRecordCount=20&orderByFields=OBJECTID&f=json)
 * **Sample Scope:** First 20 of 40 records in the source layer, ordered by Object ID (`resultRecordCount=20&orderByFields=OBJECTID`), checked 15 Oct 2026. Non-random convenience sample.
 * **Licensing & Attribution:** Data © Department of State Growth (Tasmania), CC BY 4.0. Code: MIT.

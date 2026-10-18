@@ -1,40 +1,186 @@
-import fs from 'fs';
-import path from 'path';
-import Papa from 'papaparse';
 import { Asset } from '@/types/asset';
-import { calculateRiskScore } from '@/utils/riskCalculator';
 
-export function getAssets(): Asset[] {
-  const filePath = path.join(process.cwd(), 'data', 'tasmania_assets.csv');
-  const fileContent = fs.readFileSync(filePath, 'utf8');
+export const rawAssets: Asset[] = [
+  {
+    Bridge_Number: "HUON 195",
+    Bridge_Name: "Unnamed Creek Bridge",
+    Road_Name: "Sepia Road",
+    Asset_Owner: "Huon Valley Council",
+    Load_Limit_Tonnes: 5,
+    Load_Limit_Band: "Severe (5t or less)",
+    Notes: "Restricted to single-axle vehicles only; multi-axle heavy configurations prohibited due to localized slab deflection.",
+    Latitude: -43.1234,
+    Longitude: 146.8521,
+  },
+  {
+    Bridge_Number: "DERW 1",
+    Bridge_Name: "Tyenna Creek Bridge",
+    Road_Name: "Weir Road",
+    Asset_Owner: "Derwent Valley Council",
+    Load_Limit_Tonnes: 5,
+    Load_Limit_Band: "Severe (5t or less)",
+    Notes: "Max speed limit reduced to 15 km/h while crossing to minimize dynamic resonance load.",
+    Latitude: -42.7541,
+    Longitude: 146.7123,
+  },
+  {
+    Bridge_Number: "NMID 599",
+    Bridge_Name: "Main Road (Blackman River)",
+    Road_Name: "Main Road",
+    Asset_Owner: "Northern Midlands Council",
+    Load_Limit_Tonnes: 5,
+    Load_Limit_Band: "Severe (5t or less)",
+    Notes: "None",
+    Latitude: -41.9876,
+    Longitude: 147.4512,
+  },
+  {
+    Bridge_Number: "HUON 217",
+    Bridge_Name: "Supplices Creek Bridge",
+    Road_Name: "Cygnet Caravan Park",
+    Asset_Owner: "Huon Valley Council",
+    Load_Limit_Tonnes: 5,
+    Load_Limit_Band: "Severe (5t or less)",
+    Notes: "None",
+    Latitude: -43.1521,
+    Longitude: 147.0891,
+  },
+  {
+    Bridge_Number: "GLEN 9999",
+    Bridge_Name: "Tolosa Park St Drain Bridge",
+    Road_Name: "Tolosa Park Access Rd",
+    Asset_Owner: "Glenorchy Council",
+    Load_Limit_Tonnes: 5,
+    Load_Limit_Band: "Severe (5t or less)",
+    Notes: "None",
+    Latitude: -42.8452,
+    Longitude: 147.2841,
+  },
+  {
+    Bridge_Number: "CENH 40",
+    Bridge_Name: "Nive River Bridge",
+    Road_Name: "Gowan Brae Road",
+    Asset_Owner: "Central Highlands Council",
+    Load_Limit_Tonnes: 10,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "None",
+    Latitude: -42.2145,
+    Longitude: 146.4125,
+  },
+  {
+    Bridge_Number: "HUON 200",
+    Bridge_Name: "Kermandie River Bridge",
+    Road_Name: "Memorial Park St",
+    Asset_Owner: "Huon Valley Council",
+    Load_Limit_Tonnes: 12,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "None",
+    Latitude: -43.3412,
+    Longitude: 146.9854,
+  },
+  {
+    Bridge_Number: "CLAR 3",
+    Bridge_Name: "Acton Creek Bridge",
+    Road_Name: "Esplanade",
+    Asset_Owner: "Clarence Council",
+    Load_Limit_Tonnes: 15,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "Load limit revised following structural review (Q2 2025); seasonal heavy freight diversion in place.",
+    Latitude: -42.8752,
+    Longitude: 147.3891,
+  },
+  {
+    Bridge_Number: "BODC 1243",
+    Bridge_Name: "North George River Bridge",
+    Road_Name: "Unnamed Road",
+    Asset_Owner: "Break O Day Council",
+    Load_Limit_Tonnes: 18,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "None",
+    Latitude: -41.3124,
+    Longitude: 148.2541,
+  },
+  {
+    Bridge_Number: "NMID 3225",
+    Bridge_Name: "Ross Bridge",
+    Road_Name: "Roseneath Road",
+    Asset_Owner: "Northern Midlands Council",
+    Load_Limit_Tonnes: 20,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "None",
+    Latitude: -42.0125,
+    Longitude: 147.5012,
+  },
+  {
+    Bridge_Number: "BRIG 8",
+    Bridge_Name: "Bagdad Rivulet Bridge",
+    Road_Name: "Rifle Range Road",
+    Asset_Owner: "Brighton Council",
+    Load_Limit_Tonnes: 20,
+    Load_Limit_Band: "Moderate (6-20t)",
+    Notes: "None",
+    Latitude: -42.6124,
+    Longitude: 147.2014,
+  },
+  {
+    Bridge_Number: "BODC 2398",
+    Bridge_Name: "South George River Bridge",
+    Road_Name: "Forest Lodge Road",
+    Asset_Owner: "Break O Day Council",
+    Load_Limit_Tonnes: 25,
+    Load_Limit_Band: "Light (over 20t)",
+    Notes: "None",
+    Latitude: -41.3521,
+    Longitude: 148.2145,
+  },
+  {
+    Bridge_Number: "CLAR 157",
+    Bridge_Name: "Richmond Bridge",
+    Road_Name: "Wellington Street",
+    Asset_Owner: "Clarence Council",
+    Load_Limit_Tonnes: 30,
+    Load_Limit_Band: "Light (over 20t)",
+    Notes: "None",
+    Latitude: -42.7321,
+    Longitude: 147.4412,
+  },
+  {
+    Bridge_Number: "SG 309",
+    Bridge_Name: "Meander River Bridge",
+    Road_Name: "Emu Bay Road",
+    Asset_Owner: "State Growth",
+    Load_Limit_Tonnes: 35,
+    Load_Limit_Band: "Light (over 20t)",
+    Notes: "None",
+    Latitude: -41.5214,
+    Longitude: 146.7412,
+  },
+  {
+    Bridge_Number: "CIRC 1910",
+    Bridge_Name: "Wilsons Creek",
+    Road_Name: "Montumana Road",
+    Asset_Owner: "Circular Head Council",
+    Load_Limit_Tonnes: 40,
+    Load_Limit_Band: "Light (over 20t)",
+    Notes: "None",
+    Latitude: -41.0124,
+    Longitude: 145.5214,
+  },
+  {
+    Bridge_Number: "KENT 14",
+    Bridge_Name: "Hoggs Bridge",
+    Road_Name: "Native Plains Road",
+    Asset_Owner: "Kentish Council",
+    Load_Limit_Tonnes: 44,
+    Load_Limit_Band: "Light (over 20t)",
+    Notes: "Alternative heavy freight route accessible via B14 highway corridor.",
+    Latitude: -41.3852,
+    Longitude: 146.3214,
+  }
+];
 
-  const parsed = Papa.parse(fileContent, {
-    header: true,
-    dynamicTyping: true,
-    skipEmptyLines: true,
-  });
-
-  // Map raw CSV rows to match the Asset interface
-  const assets: Asset[] = (parsed.data as any[]).map((row) => {
-    const asset: Asset = {
-      Object: row['Object'] || '',
-      Bridge_Number: row['Bridge Number'] || '',
-      Bridge_Name: row['Bridge Name'] || '',
-      Road_Name: row['Road Name'] || '',
-      Asset_Owner: row['Asset Owner'] || '',
-      Load_Limit_t: Number(row['Load Limit (t)'] || 0),
-      Load_Limit_Description: row['Load Limit Description'] || '',
-      Longitude: Number(row['Longitude'] || 0),
-      Latitude: Number(row['Latitude'] || 0),
-      Load_Limit_Band: row['Load Limit Band'] || 'Moderate',
-    };
-
-    return {
-      ...asset,
-      riskScore: calculateRiskScore(asset),
-    };
-  });
-
-  // Sort by risk score descending (Risk-ranked)
-  return assets.sort((a, b) => (b.riskScore || 0) - (a.riskScore || 0));
+export function loadAssets(): Asset[] {
+  return rawAssets;
 }
+
+export const getAssets = loadAssets;
